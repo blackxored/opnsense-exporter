@@ -1,43 +1,25 @@
 package opnsense
 
 type HealthCheckResponse struct {
-	System struct {
-		Status string `json:"status"`
-	} `json:"System"`
-	CrashReporter struct {
-		Message    string `json:"message"`
-		Status     string `json:"status"`
-		StatusCode int    `json:"statusCode"`
-	} `json:"CrashReporter"`
-	Firewall struct {
-		Message    string `json:"message"`
-		Status     string `json:"status"`
-		StatusCode int    `json:"statusCode"`
-	} `json:"Firewall"`
-	// OPNsense>25.1 has a different structure
-	// See https://github.com/AthennaMind/opnsense-exporter/issues/48#issuecomment-2692494735
 	Metadata struct {
 		System struct {
-			Status int `json:"status"`
+			Status  string `json:"status"`
+			Message string `json:"message"`
 		} `json:"System"`
+		// TODO: I do not see these on my install
 		CrashReporter struct {
-			Message    string `json:"message"`
-			Status     string `json:"status"`
-			StatusCode int    `json:"statusCode"`
+			Message string `json:"message"`
+			Status  string `json:"status"`
 		} `json:"CrashReporter"`
 		Firewall struct {
-			Message    string `json:"message"`
-			Status     int    `json:"status"`
-			StatusCode int    `json:"statusCode"`
+			Message string `json:"message"`
+			Status  string `json:"status"`
 		} `json:"Firewall"`
 	} `json:"metadata"`
 }
 
 const (
 	HealthCheckStatusOK = "OK"
-	// OPNsense>25.1 has a different value
-	// See https://github.com/AthennaMind/opnsense-exporter/issues/48#issuecomment-2692494735
-	HealthCheckStatusOK_v25_1 = 2
 )
 
 // HealthCheck checks if the OPNsense is up and running.
